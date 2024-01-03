@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-// import Pusher from "pusher-js";
+import Pusher from "pusher-js";
 
 function App() {
 
@@ -8,19 +8,19 @@ function App() {
   const [message, setMessage] = useState('');
   let allMessages = [];
 
-  // useEffect(() => {
-      // Pusher.logToConsole = true;
+  useEffect(() => {
+      Pusher.logToConsole = true;
 
-      // const pusher = new Pusher('', {
-      //     cluster: ''
-      // });
+      const pusher = new Pusher('5f3afa97b37fea63cef9', {
+          cluster: 'ap2'
+      });
 
-  //     const channel = pusher.subscribe('chat');
-  //     channel.bind('message', function (data) {
-  //         allMessages.push(data);
-  //         setMessages(allMessages);
-  //     });
-  // }, []);
+      const channel = pusher.subscribe('chat');
+      channel.bind('message', function (data) {
+          allMessages.push(data);
+          setMessages(allMessages);
+      });
+  }, []);
 
   const submit = async e => {
       e.preventDefault();
